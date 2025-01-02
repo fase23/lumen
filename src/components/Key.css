@@ -1,0 +1,101 @@
+/* SubmitKey */
+
+.sub-key{
+    margin: 0 auto;  
+    padding: 30px 0 20px; 
+    display: flex;
+    justify-content: center;
+    width: 360px;
+    height: 42px;
+    gap: 12px;
+}
+
+.sub-key input{
+    background-color: #d8d8d8; /* Gray background */
+    border: 1px solid #707070;    /* Gray border with thicker style */
+    color: #000000;               /* Default text color */
+    font-size: 16px;           /* Adjust font size */
+    padding: 10px 14px;             /* Padding to make the input field larger */
+    border-radius: 10px;        /* Optional: rounded corners */
+    width: 100%;               /* Optional: makes the input box fill its container */
+    box-sizing: border-box;    /* Ensures padding is included in the width */
+}
+
+.sub-key input:focus {
+    background-color: #aeb9e2;  /* Slightly darker gray background when focused */
+    border: 3px solid #034dfa;  /* Green border when focused */
+    outline: none;              /* Remove default focus outline */
+  }
+
+.sub-key button{
+    background-color: #555555;
+}
+
+.sub-key input:focus + button{
+    background-color: #034dfa;
+}
+
+.sub-key input:focus + button:hover{
+    border: 0;
+    background-color: #3d74f4;
+}
+
+
+/* GenerateKey */
+
+.gen-key{
+    margin: 0 auto;  
+    padding: 30px 0 20px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 400px;
+    height: 42px;
+    gap: 16px;
+}
+
+.gen-key button{
+    background-color: #555555;
+}
+
+.gen-key button:hover{
+    background-color: #39ea76;
+}
+
+.copy-to-clipboard{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.copy-to-clipboard p{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    height: 22px;
+    font-family: "Courier New", Courier, monospace;
+    font-weight: bold;
+    color:#39ea76;
+    background-color: #002900a0;
+    padding: 8px 12px;
+    border-radius: 10px;
+}
+
+.copy-to-clipboard button{
+    height: 22px;
+    color:#39ea76;
+    background-color: #002900a0;
+    padding: 8px 12px;
+    border-radius: 10px;
+    box-sizing: content-box;
+}
+.copy-to-clipboard button:hover{
+    color:#39ea76;
+    background-color: #00290051;
+}
+
+.gen-key-message{
+   color: #39ea76; 
+}

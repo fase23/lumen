@@ -1,0 +1,21 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 340px;
+  padding: 20px;
+  will-change: filter;
+  filter: drop-shadow(0 0 40px #ffb30042);
+}
+
+.lumenHighlight{
+  color: #ffc400; 
+}
+
+.card {
+  padding: 2em;
+}
