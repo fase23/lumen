@@ -1,27 +1,43 @@
+
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Key.css"; // Import Key-specific styles
 
 
 function SubmitKey() {
+    const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
     const [keyinput, setInput] = useState(""); // State to store user input
+    //const [data, setData] = useState<any>(null);
   
-    const handleSubmit = () => {
-      // Send the input string to the backend
-      console.log("Sending to backend:", keyinput);
-      fetch("https://your-backend-api.com/endpoint", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ userInput: keyinput }),
-      })
-        .then((response) => response.json())
-        .then((data) => console.log("Response from backend:", data))
-        .catch((error) => console.error("Error:", error));
+    const handleSubmit = async() => {
+      setLoading(true);
+
+      try {
+        const response = await fetch(`https://qmqubx4qde4n6owgohrvpgjygm0teogs.lambda-url.eu-west-1.on.aws/?secret_key=${encodeURIComponent(keyinput)}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
   
+        if (response.ok) { // HTTP status 200-299
+          const data = await response.json();
+          navigate("/board", { state: { data, secretKey: keyinput } }); // Navigate to new page with data
+        } else {
+          alert("Error fetching data");
+        }
+      } catch (error) {
+        console.error("Fetch error:", error);
+        alert("Network error");
+      } finally {
+        setLoading(false);
+      }
+    
       // Optionally clear the input after submitting
       setInput("");
     };
+
   
     const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
       if (event.key === "Enter") {
@@ -39,7 +55,9 @@ function SubmitKey() {
             onKeyDown={handleKeyPress} // Submit on pressing Enter
             placeholder="Paste the key..."
           />
-          <button onClick={handleSubmit}>Enter</button>
+          <button onClick={handleSubmit} disabled={loading}>
+            {loading ? "Loading..." : "Enter"}
+          </button>
         </div>
       </>
     );
@@ -67,24 +85,34 @@ function GenerateKey() {
     setIsLoading(true); // Set loading state to true
   
     try {
+      /* -------------------old-----------------------
       // Simulated delay to mimic an actual backend call
       await new Promise((resolve) => setTimeout(resolve, 1000));
-  
       // Mock response to simulate backend
       const mockResponse = { key: "abcd-efgh-ilmn-pqrs" };
       setKey(mockResponse.key); // Use the mock key
-  
-      // Uncomment the following lines when your backend is ready:
-      /*
-      const response = await fetch('/api/generate-key');
+      ------------------------------------------------ */
+
+      const payload = { action: 'generate_secret_key' };
+
+      const response = await fetch('https://qmqubx4qde4n6owgohrvpgjygm0teogs.lambda-url.eu-west-1.on.aws', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+      
       const data = await response.json();
-  
+      
       if (response.ok) {
-        setKey(data.key); // Assuming the backend returns the key in the 'key' field
+        setKey(data.secret_key); // Assuming the backend returns the key in the 'secret_key' field
       } else {
         alert('Error generating key');
       }
-      */
+      
+
+      
     } catch (error) {
       console.error('Error fetching key:', error);
       alert('Failed to generate key');
