@@ -17,7 +17,6 @@ function Notes() {
   const secretKey = location.state?.secretKey || localStorage.getItem("secretKey");
   // const secretKey = localStorage.getItem("secretKey");
 
-
   const refresh = async() =>{
     setLoading(true);
     try {
@@ -93,9 +92,16 @@ function Notes() {
         }
     };
 
+    // useEffect(() => {
+    //         refresh();
+    //     }, []);
+    
     useEffect(() => {
-            refresh();
-        }, []);
+        refresh();
+        if (secretKey) {
+            localStorage.setItem("secretKey", secretKey); // Store it for refresh persistence
+        }
+    }, [secretKey]);
 
 
     return (
