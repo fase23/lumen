@@ -92,16 +92,16 @@ function Notes() {
         }
     };
 
-    // useEffect(() => {
-    //         refresh();
-    //     }, []);
     
     useEffect(() => {
-        refresh();
         if (secretKey) {
             localStorage.setItem("secretKey", secretKey); // Store it for refresh persistence
         }
     }, [secretKey]);
+
+    useEffect(() => {
+            refresh();
+        }, []);
 
 
     return (
