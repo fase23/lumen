@@ -1,5 +1,5 @@
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Key.css"; // Import Key-specific styles
 
@@ -7,8 +7,12 @@ import "./Key.css"; // Import Key-specific styles
 function SubmitKey() {
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
-    const [keyinput, setInput] = useState(""); // State to store user input
-    //const [data, setData] = useState<any>(null);
+    //const [keyinput, setInput] = useState(""); // old
+    const [keyinput, setInput] = useState(localStorage.getItem("secretKey") || ""); // Load key from localStorage
+  
+    useEffect(() => {
+        localStorage.setItem("secretKey", keyinput); // Store key when it changes
+    }, [keyinput]);
   
     const handleSubmit = async() => {
       setLoading(true);

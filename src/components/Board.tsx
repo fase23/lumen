@@ -13,7 +13,9 @@ function Notes() {
   const [newColor, setNewColor] = useState("#C80909");
   const [loading, setLoading] = useState(false);
   //const secretKey = notes.length > 0 ? notes[0].secret_key : location.state?.secretKey;
-  const secretKey = location.state?.secretKey;
+  // const secretKey = location.state?.secretKey;
+  const secretKey = location.state?.secretKey || localStorage.getItem("secretKey");
+  // const secretKey = localStorage.getItem("secretKey");
 
 
   const refresh = async() =>{
